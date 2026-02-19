@@ -124,7 +124,7 @@ function renderPage(todos) {
 </head>
 <body>
   <div class="container">
-    <h1>📝 Todo AApp</h1>
+    <h1>📝 Todo Apps</h1>
     <p class="subtitle">Built with Node.js — no frameworks!</p>
 
     <form class="add-form" method="POST" action="/add">
