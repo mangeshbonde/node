@@ -3,6 +3,7 @@ pipeline {
 
     environment {
         APP_NAME = "todo-app"
+        PM2 = "/usr/bin/pm2"
     }
 
     stages {
@@ -10,9 +11,7 @@ pipeline {
         stage('Kill Old App') {
             steps {
                 sh '''
-                if pm2 list | grep $APP_NAME; then
-                    pm2 delete $APP_NAME
-                fi
+                $PM2 delete $APP_NAME || true
                 '''
             }
         }
@@ -20,20 +19,10 @@ pipeline {
         stage('Start App') {
             steps {
                 sh '''
-                pm2 start server.js --name $APP_NAME
-                pm2 save
+                $PM2 start server.js --name $APP_NAME
+                $PM2 save
                 '''
             }
-        }
-
-    }
-
-    post {
-        success {
-            echo "Deployment Successful!"
-        }
-        failure {
-            echo "Deployment Failed!"
         }
     }
 }
