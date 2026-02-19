@@ -7,13 +7,6 @@ pipeline {
 
     stages {
 
-        stage('Clone') {
-            steps {
-                echo "Cloning repository..."
-                git 'https://github.com/mangeshbonde/node.git'
-            }
-        }
-
         stage('Install Dependencies') {
             steps {
                 echo "Installing dependencies..."
@@ -33,7 +26,6 @@ pipeline {
                 sh 'pm2 save'
             }
         }
-
     }
 
     post {
