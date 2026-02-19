@@ -7,25 +7,25 @@ pipeline {
 
     stages {
 
-        stage('Install Dependencies') {
+        stage('Kill Old App') {
             steps {
-                echo "Installing dependencies..."
-                sh 'npm install'
+                sh '''
+                if pm2 list | grep $APP_NAME; then
+                    pm2 delete $APP_NAME
+                fi
+                '''
             }
         }
 
-        stage('Stop Old App') {
+        stage('Start App') {
             steps {
-                sh 'pm2 delete $APP_NAME || true'
+                sh '''
+                pm2 start server.js --name $APP_NAME
+                pm2 save
+                '''
             }
         }
 
-        stage('Start Application') {
-            steps {
-                sh 'pm2 start server.js --name $APP_NAME'
-                sh 'pm2 save'
-            }
-        }
     }
 
     post {
