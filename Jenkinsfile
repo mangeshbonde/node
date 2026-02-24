@@ -13,7 +13,7 @@ pipeline {
                 sh '''
                 set +e
 
-                echo "===== CHECKING NODE ====="
+                echo "===== CHECKING NODE  ====="
                 if ! command -v node >/dev/null 2>&1; then
                     sudo apt update -y
                     sudo apt install -y curl
